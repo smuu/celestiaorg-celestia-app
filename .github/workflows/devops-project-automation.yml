@@ -1,0 +1,33 @@
+name: Automation on issue and PR creation
+
+on:
+  issues:
+    types:
+      - labeled
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  add-to-project:
+    if: ${{ github.event.label.name == 'devops' }}
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.4.1
+        with:
+          project-url: https://github.com/orgs/celestiaorg/projects/27
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+  assign:
+    if: ${{ github.event.label.name == 'devops' }}
+    name: Assign issue to creator
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      # CLI also workds with PR
+      - run: gh issue edit $ISSUE --add-assignee $CREATOR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}
+          CREATOR: ${{ github.event.issue.user.login }}
