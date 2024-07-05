@@ -54,12 +54,12 @@ func (t *Testnet) SetConsensusMaxBlockSize(size int64) {
 	t.genesis.ConsensusParams.Block.MaxBytes = size
 }
 
-func (t *Testnet) CreateGenesisNode(version string, selfDelegation, upgradeHeight int64, resources Resources, tsharkToS3 bool, tsharkFilterIP string) error {
+func (t *Testnet) CreateGenesisNode(version string, selfDelegation, upgradeHeight int64, resources Resources, tsharkToS3 bool) error {
 	signerKey := t.keygen.Generate(ed25519Type)
 	networkKey := t.keygen.Generate(ed25519Type)
 	node, err := NewNode(fmt.Sprintf("val%d", len(t.nodes)), version, 0,
 		selfDelegation, nil, signerKey, networkKey, upgradeHeight, resources,
-		t.grafana, tsharkToS3, tsharkFilterIP)
+		t.grafana, tsharkToS3)
 	if err != nil {
 		return err
 	}
@@ -70,9 +70,9 @@ func (t *Testnet) CreateGenesisNode(version string, selfDelegation, upgradeHeigh
 	return nil
 }
 
-func (t *Testnet) CreateGenesisNodes(num int, version string, selfDelegation, upgradeHeight int64, resources Resources, tsharkToS3 bool, tsharkFilterIP string) error {
+func (t *Testnet) CreateGenesisNodes(num int, version string, selfDelegation, upgradeHeight int64, resources Resources, tsharkToS3 bool) error {
 	for i := 0; i < num; i++ {
-		if err := t.CreateGenesisNode(version, selfDelegation, upgradeHeight, resources, tsharkToS3, tsharkFilterIP); err != nil {
+		if err := t.CreateGenesisNode(version, selfDelegation, upgradeHeight, resources, tsharkToS3); err != nil {
 			return err
 		}
 	}
@@ -230,12 +230,12 @@ func (t *Testnet) CreateAccount(name string, tokens int64, txsimKeyringDir strin
 	return kr, nil
 }
 
-func (t *Testnet) CreateNode(version string, startHeight, upgradeHeight int64, resources Resources, tsharkToS3 bool, tsharkFilterIP string) error {
+func (t *Testnet) CreateNode(version string, startHeight, upgradeHeight int64, resources Resources, tsharkToS3 bool) error {
 	signerKey := t.keygen.Generate(ed25519Type)
 	networkKey := t.keygen.Generate(ed25519Type)
 	node, err := NewNode(fmt.Sprintf("val%d", len(t.nodes)), version,
 		startHeight, 0, nil, signerKey, networkKey, upgradeHeight, resources,
-		t.grafana, tsharkToS3, tsharkFilterIP)
+		t.grafana, tsharkToS3)
 	if err != nil {
 		return err
 	}
