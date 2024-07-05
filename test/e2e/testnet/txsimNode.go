@@ -57,10 +57,6 @@ func CreateTxClient(
 	if err != nil {
 		return nil, err
 	}
-	err = instance.AddVolumeWithOwner(volumePath, resources.Volume, 10001)
-	if err != nil {
-		return nil, err
-	}
 	args := []string{
 		fmt.Sprintf("-k %d", 0),
 		fmt.Sprintf("-g %s", endpoint),
