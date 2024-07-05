@@ -301,10 +301,10 @@ func LargeNetwork_BigBlock_8MiB_Latency(logger *log.Logger) error {
 	manifest.TestnetName = "LargeNetwork_BigBlock_8MiB_Latency"
 	manifest.ChainID = "large-network-big-block-8mib-latency"
 	manifest.MaxBlockBytes = 8 * toMiB
-	manifest.Validators = 2
-	manifest.TxClients = 2
+	manifest.Validators = 100
+	manifest.TxClients = 100
 	manifest.BlobSequences = 20
-	manifest.TestDuration = 10 * time.Minute
+	manifest.TestDuration = 30 * time.Minute
 	manifest.EnableLatency = true
 	manifest.LatencyParams = LatencyParams{70, 0} // in  milliseconds
 
