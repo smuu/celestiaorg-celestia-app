@@ -303,8 +303,8 @@ func LargeNetwork_BigBlock_8MiB_Latency(logger *log.Logger) error {
 	manifest.MaxBlockBytes = 8 * toMiB
 	manifest.Validators = 100
 	manifest.TxClients = 100
-	manifest.BlobSequences = 20
-	manifest.TestDuration = 30 * time.Minute
+	manifest.BlobSequences = 1
+	manifest.TestDuration = 15 * time.Minute
 	manifest.EnableLatency = true
 	manifest.LatencyParams = LatencyParams{70, 0} // in  milliseconds
 
